@@ -7,13 +7,14 @@ import SkeletonLoader from '../SkeletonLoader'
 
 interface SearchResult {
   id: string
-  type: 'person' | 'folder' | 'file' | 'video'
+  type: 'person' | 'folder' | 'file' | 'video' | 'image'
   title: string
   subtitle?: string
   metadata?: string
   avatar?: string
   isOnline?: boolean
   fileCount?: number
+  url?: string
 }
 
 interface TabVisibility {
@@ -97,11 +98,11 @@ const SearchResults: React.FC = () => {
     },
     {
       id: '3',
-      type: 'file',
-      title: 'Dribbble Presentation.pptx',
-      subtitle: 'in Dribbble Folder',
-      metadata: 'Edited 2m ago',
-      fileSize: '2.4 MB'
+      type: 'image',
+      title: 'creative_file_frankies.jpg',
+      subtitle: 'in Photos/Assets',
+      metadata: 'Edited 12m ago',
+      url: 'https://example.com/creative_file_frankies.jpg'
     },
     {
       id: '4',
@@ -141,7 +142,7 @@ const SearchResults: React.FC = () => {
 
     switch (type) {
       case 'files':
-        return filtered.filter(result => ['file', 'folder', 'video'].includes(result.type)).length
+        return filtered.filter(result => ['file', 'folder', 'video', 'image'].includes(result.type)).length
       case 'people':
         return filtered.filter(result => result.type === 'person').length
       case 'chats':
@@ -202,7 +203,7 @@ const SearchResults: React.FC = () => {
 
     switch (activeTab) {
       case 'files':
-        filtered = filtered.filter(result => ['file', 'folder', 'video'].includes(result.type))
+        filtered = filtered.filter(result => ['file', 'folder', 'video', 'image'].includes(result.type))
         break
       case 'people':
         filtered = filtered.filter(result => result.type === 'person')
@@ -266,11 +267,15 @@ const SearchResults: React.FC = () => {
         )}
 
         {/* Results List - Show when there's search text, loading, or results */}
-        {(searchQuery.trim() || isLoading) && (
-          <div className="px-4 py-2 transition-all duration-300 ease-in-out overflow-y-auto scrollbar-hide min-h-[180px]" style={{
-            maxHeight: isLoading ? '300px' : filteredResults.length === 0 ? '200px' : `${Math.min(384, filteredResults.length * 72 + 32)}px`
-          }}>
-            {isLoading ? (
+        <div className="px-4 transition-all duration-300 ease-in-out overflow-y-auto scrollbar-hide" style={{
+          height: (searchQuery.trim() || isLoading) ? 
+            (isLoading ? '300px' : filteredResults.length === 0 ? '200px' : `${Math.min(384, filteredResults.length * 72 + 32)}px`) : 
+            '0px',
+          minHeight: (searchQuery.trim() || isLoading) ? '180px' : '0px',
+          opacity: (searchQuery.trim() || isLoading) ? 1 : 0
+        }}>
+          {(searchQuery.trim() || isLoading) && (
+            isLoading ? (
               <div className="space-y-1">
                 {Array.from({ length: 4 }).map((_, index) => (
                   <SkeletonLoader key={index} />
@@ -288,6 +293,7 @@ const SearchResults: React.FC = () => {
                     avatar={result.avatar}
                     isOnline={result.isOnline}
                     fileCount={result.fileCount}
+                    url={result.url}
                     onClick={() => console.log('Clicked:', result.title)}
                   />
                 ))}
@@ -301,9 +307,9 @@ const SearchResults: React.FC = () => {
                 </div>
                 <p className="text-sm text-gray-500">No results found</p>
               </div>
-            )}
-          </div>
-        )}
+            )
+          )}
+        </div>
       </div>
     </div>
   )
