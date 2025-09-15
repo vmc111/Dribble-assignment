@@ -2,6 +2,10 @@
 
 A React application built with TypeScript and Tailwind CSS.
 
+## 🚀 Live Demo
+
+View the live application at: [https://dribblesearch.netlify.app/](https://dribblesearch.netlify.app/)
+
 ## Features
 
 - ⚛️ React 18 with TypeScript
