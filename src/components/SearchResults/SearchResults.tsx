@@ -216,7 +216,7 @@ const SearchResults: React.FC = () => {
     }
 
     return filtered;
-  }, [searchQuery, activeTab]);
+  }, [searchQuery, activeTab, sampleResults]);
 
   const handleTabVisibilityChange = (newVisibility: TabVisibility) => {
     setTabVisibility(newVisibility);

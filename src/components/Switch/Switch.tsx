@@ -88,7 +88,6 @@ const Switch = (props: SwitchProps): React.ReactElement => {
   };
 
   const currentSize = sizeClasses[size];
-  const currentColor = colorClasses[color];
 
   return (
     <label className={`inline-flex items-center cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>
