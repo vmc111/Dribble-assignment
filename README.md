@@ -1,4 +1,4 @@
-# Dots Assignment
+# Dribbble Search Interface Recreation
 
 A React application built with TypeScript and Tailwind CSS.
 
@@ -22,11 +22,13 @@ Make sure you have Node.js installed on your machine.
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 yarn
 ```
 
 2. Start the development server:
+
 ```bash
 yarn start
 ```
@@ -40,20 +42,33 @@ yarn start
 - `yarn build` - Builds the app for production
 - `yarn eject` - Ejects from Create React App (one-way operation)
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **React 18** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Utility-first CSS framework
-- **Create React App** - Build tooling
+- **React 18** - UI library with hooks and modern patterns
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework for rapid styling
+- **Create React App** - Build tooling and development setup
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
-├── App.tsx          # Main application component
-├── index.tsx        # Application entry point
-├── index.css        # Global styles with Tailwind directives
-└── react-app-env.d.ts # TypeScript declarations
+├── components/
+│   ├── SearchInput/         # Main search input component
+│   ├── FilterBar/           # Category filter tabs
+│   ├── SearchResults/       # Results container with animations
+│   ├── SearchResultItem/    # Individual result item
+│   ├── Switch/              # Custom toggle switch
+│   └── TabNavigation/       # Tab navigation component
+├── App.tsx                  # Main application component
+├── index.tsx               # Application entry point
+└── index.css              # Global styles with Tailwind directives
 ```
-# Dribble-assignment
+
+## 🎯 Assignment Completion
+
+✅ **Fully functional UI/UX** - Complete recreation of the search interface  
+✅ **React.js implementation** - Built with modern React patterns and TypeScript  
+✅ **Custom components** - No external UI libraries used  
+✅ **Hosted version** - Live demo available on Netlify  
+✅ **Dummy data** - Realistic search results with various file types
