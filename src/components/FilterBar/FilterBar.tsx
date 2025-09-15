@@ -1,20 +1,20 @@
-import React from 'react';
+import React from 'react'
 
 interface FilterOption {
-  id: string;
-  label: string;
-  count?: number;
+  id: string
+  label: string
+  count?: number
 }
 
 interface FilterBarProps {
-  categories: FilterOption[];
-  sortOptions: FilterOption[];
-  activeCategory: string;
-  activeSortOption: string;
-  onCategoryChange: (categoryId: string) => void;
-  onSortChange: (sortId: string) => void;
-  resultCount?: number;
-  className?: string;
+  categories: FilterOption[]
+  sortOptions: FilterOption[]
+  activeCategory: string
+  activeSortOption: string
+  onCategoryChange: (categoryId: string) => void
+  onSortChange: (sortId: string) => void
+  resultCount?: number
+  className?: string
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({
@@ -81,7 +81,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FilterBar;
+export default FilterBar

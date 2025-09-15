@@ -1,65 +1,63 @@
-import React, { useState, useCallback, KeyboardEvent } from 'react';
+import React, { useState, useCallback, KeyboardEvent, forwardRef } from 'react'
 
 interface SwitchProps {
   /** Whether the switch is checked by default */
-  defaultSelected?: boolean;
+  defaultSelected?: boolean
   /** Whether the switch is checked (controlled) */
-  isSelected?: boolean;
+  isSelected?: boolean
   /** Handler called when the switch state changes */
-  onChange?: (isSelected: boolean) => void;
+  onChange?: (isSelected: boolean) => void
   /** Whether the switch is disabled */
-  isDisabled?: boolean;
+  isDisabled?: boolean
   /** The label for the switch */
-  children?: React.ReactNode;
+  children?: React.ReactNode
   /** Additional CSS classes */
-  className?: string;
+  className?: string
   /** Size variant of the switch */
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg'
   /** Color variant of the switch */
-  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
   /** ARIA label for accessibility */
-  'aria-label'?: string;
+  'aria-label'?: string
   /** ARIA labelledby for accessibility */
-  'aria-labelledby'?: string;
+  'aria-labelledby'?: string
 }
 
-const Switch = (props: SwitchProps): React.ReactElement => {
+const Switch = forwardRef<HTMLButtonElement, SwitchProps>((props, ref) => {
   const {
-    defaultSelected = false,
     isSelected,
+    defaultSelected = false,
     onChange,
     isDisabled = false,
     children,
     className = '',
     size = 'md',
-    color = 'primary',
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
-  } = props;
-
-  const [internalSelected, setInternalSelected] = useState(defaultSelected);
+  } = props
+  const [internalSelected, setInternalSelected] = useState(defaultSelected)
   
-  const isControlled = isSelected !== undefined;
-  const selected = isControlled ? isSelected : internalSelected;
+  const isControlled = isSelected !== undefined
+  const selected = isControlled ? isSelected : internalSelected
 
   const handleToggle = useCallback(() => {
-    if (isDisabled) return;
+    if (isDisabled) return
     
-    const newSelected = !selected;
+    const newSelected = !selected
     
     if (!isControlled) {
-      setInternalSelected(newSelected);
+      setInternalSelected(newSelected)
     }
     
-    onChange?.(newSelected);
-  }, [selected, isDisabled, isControlled, onChange]);
+    onChange?.(newSelected)
+  }, [selected, isDisabled, isControlled, onChange])
 
   const handleKeyDown = useCallback((event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === ' ' || event.key === 'Enter') {
-      event.preventDefault();
-      handleToggle();
+      event.preventDefault()
+      handleToggle()
     }
-  }, [handleToggle]);
+  }, [handleToggle])
 
   const sizeClasses = {
     sm: {
@@ -77,17 +75,9 @@ const Switch = (props: SwitchProps): React.ReactElement => {
       thumb: 'w-7 h-7',
       translate: 'translate-x-6',
     },
-  };
+  }
 
-  const colorClasses = {
-    primary: 'bg-blue-600',
-    secondary: 'bg-gray-600',
-    success: 'bg-green-600',
-    warning: 'bg-yellow-600',
-    danger: 'bg-red-600',
-  };
-
-  const currentSize = sizeClasses[size];
+  const currentSize = sizeClasses[size]
 
   return (
     <label className={`inline-flex items-center cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>
@@ -120,7 +110,7 @@ const Switch = (props: SwitchProps): React.ReactElement => {
         </span>
       )}
     </label>
-  );
-};
+  )
+})
 
-export default Switch;
+export default Switch

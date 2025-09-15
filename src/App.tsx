@@ -1,8 +1,9 @@
-import React from 'react';
-import SearchResults from './components/SearchResults';
+import './index.css'
+import React from 'react'
+import SearchResults from './components/SearchResults'
 
 function App() {
-  return <SearchResults />;
+  return <SearchResults />
 }
 
-export default App;
+export default App

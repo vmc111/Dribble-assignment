@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 interface Tab {
-  id: string;
-  label: string;
-  count?: number;
-  icon?: React.ReactNode;
-  visible?: boolean;
+  id: string
+  label: string
+  count?: number
+  icon?: React.ReactNode
+  visible?: boolean
 }
 
 interface TabNavigationProps {
-  tabs: Tab[];
-  activeTab: string;
-  onTabChange: (tabId: string) => void;
-  settingsComponent?: React.ReactNode;
-  className?: string;
+  tabs: Tab[]
+  activeTab: string
+  onTabChange: (tabId: string) => void
+  settingsComponent?: React.ReactNode
+  className?: string
 }
 
 const TabNavigation: React.FC<TabNavigationProps> = ({
@@ -23,8 +23,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   settingsComponent,
   className = ""
 }) => {
-  const visibleTabs = tabs.filter(tab => tab.visible !== false);
-
+  const visibleTabs = tabs.filter(tab => tab.visible !== false)
   return (
     <div className="flex items-end justify-between border-b border-gray-200">
       <div className={`flex items-end space-x-4 overflow-x-auto scrollbar-hide flex-1 ${className}`}>
@@ -52,7 +51,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TabNavigation;
+export default TabNavigation

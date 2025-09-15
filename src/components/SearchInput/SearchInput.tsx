@@ -1,10 +1,10 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react'
 
 interface SearchInputProps {
-  placeholder?: string;
-  onSearch?: (query: string) => void;
-  defaultValue?: string;
-  isLoading?: boolean;
+  placeholder?: string
+  onSearch?: (query: string) => void
+  defaultValue?: string
+  isLoading?: boolean
 }
 
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
@@ -13,28 +13,28 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
   defaultValue = "",
   isLoading = false
 }, ref) => {
-  const [query, setQuery] = useState(defaultValue);
-  const [isFocused, setIsFocused] = useState(false);
+  const [query, setQuery] = useState(defaultValue)
+  const [isFocused, setIsFocused] = useState(false)
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
-    onSearch?.(value);
-  };
+    const value = e.target.value
+    setQuery(value)
+    onSearch?.(value)
+  }
 
   const handleClear = () => {
-    setQuery("");
-    onSearch?.("");
-  };
+    setQuery("")
+    onSearch?.("")
+  }
 
   const handleFocus = () => {
-    setIsFocused(true);
-  };
+    setIsFocused(true)
+  }
 
   const handleBlur = () => {
-    setIsFocused(false);
-  };
+    setIsFocused(false)
+  }
 
   return (
     <div className="relative">
@@ -88,9 +88,9 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
         )}
       </div>
     </div>
-  );
-});
+  )
+})
 
-SearchInput.displayName = 'SearchInput';
+SearchInput.displayName = 'SearchInput'
 
-export default SearchInput;
+export default SearchInput

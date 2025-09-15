@@ -1,17 +1,17 @@
-import React from 'react';
+import React from 'react'
 
 interface SearchResultCardProps {
-  title: string;
-  description: string;
-  category: string;
-  image?: string;
-  tags?: string[];
-  author?: string;
-  date?: string;
-  likes?: number;
-  views?: number;
-  className?: string;
-  onClick?: () => void;
+  title: string
+  description: string
+  category: string
+  image?: string
+  tags?: string[]
+  author?: string
+  date?: string
+  likes?: number
+  views?: number
+  className?: string
+  onClick?: () => void
 }
 
 const SearchResultCard: React.FC<SearchResultCardProps> = ({
@@ -114,7 +114,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchResultCard;
+export default SearchResultCard

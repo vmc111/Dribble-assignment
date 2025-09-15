@@ -1,84 +1,84 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import SearchInput from '../SearchInput';
-import TabNavigation from '../TabNavigation';
-import SearchResultItem from '../SearchResultItem';
-import SettingsDropdown from '../SettingsDropdown';
-import SkeletonLoader from '../SkeletonLoader';
+import React, { useState, useMemo, useRef, useEffect } from 'react'
+import SearchInput from '../SearchInput'
+import TabNavigation from '../TabNavigation'
+import SearchResultItem from '../SearchResultItem'
+import SettingsDropdown from '../SettingsDropdown'
+import SkeletonLoader from '../SkeletonLoader'
 
 interface SearchResult {
-  id: string;
-  type: 'person' | 'folder' | 'file' | 'video';
-  title: string;
-  subtitle?: string;
-  metadata?: string;
-  avatar?: string;
-  isOnline?: boolean;
-  fileCount?: number;
+  id: string
+  type: 'person' | 'folder' | 'file' | 'video'
+  title: string
+  subtitle?: string
+  metadata?: string
+  avatar?: string
+  isOnline?: boolean
+  fileCount?: number
 }
 
 interface TabVisibility {
-  files: boolean;
-  people: boolean;
-  chats: boolean;
-  lists: boolean;
+  files: boolean
+  people: boolean
+  chats: boolean
+  lists: boolean
 }
 
 const SearchResults: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeTab, setActiveTab] = useState('all')
   const [tabVisibility, setTabVisibility] = useState<TabVisibility>({
     files: true,
     people: true,
     chats: false,
     lists: false
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 's' && !event.ctrlKey && !event.metaKey && !event.altKey) {
-        const activeElement = document.activeElement;
+        const activeElement = document.activeElement
         if (activeElement?.tagName !== 'INPUT' && activeElement?.tagName !== 'TEXTAREA') {
-          event.preventDefault();
-          searchInputRef.current?.focus();
+          event.preventDefault()
+          searchInputRef.current?.focus()
         }
       }
-    };
+    }
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown)
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   const handleSearch = (query: string) => {
     if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
+      clearTimeout(searchTimeoutRef.current)
     }
 
     if (query.trim()) {
-      setIsLoading(true);
+      setIsLoading(true)
       searchTimeoutRef.current = setTimeout(() => {
-        setSearchQuery(query);
-        setIsLoading(false);
-      }, 800);
+        setSearchQuery(query)
+        setIsLoading(false)
+      }, 800)
     } else {
-      setSearchQuery(query);
-      setIsLoading(false);
+      setSearchQuery(query)
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     return () => {
       if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
+        clearTimeout(searchTimeoutRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
-  const sampleResults: SearchResult[] = [
+  const sampleResults: SearchResult[] = useMemo(() => [
     {
       id: '1',
       type: 'person',
@@ -90,32 +90,34 @@ const SearchResults: React.FC = () => {
     {
       id: '2',
       type: 'person',
-      title: 'Adam Cadribean',
-      subtitle: 'Active 1w ago',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face',
-      isOnline: false
+      title: 'Javier Alaves',
+      subtitle: 'Active',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face',
+      isOnline: true
     },
     {
       id: '3',
       type: 'file',
-      title: 'final_dribbble_presentation.jpg',
-      subtitle: 'in Presentations',
-      metadata: 'Edited 1w ago'
+      title: 'Dribbble Presentation.pptx',
+      subtitle: 'in Dribbble Folder',
+      metadata: 'Edited 2m ago',
+      fileSize: '2.4 MB'
     },
     {
       id: '4',
-      type: 'person',
-      title: 'Margareth Cendribgssen',
-      subtitle: 'Active 1w ago',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face',
-      isOnline: false
+      type: 'video',
+      title: 'Dribbble Video.mp4',
+      subtitle: 'in Dribbble Folder',
+      metadata: 'Edited 5m ago',
+      fileSize: '15.2 MB'
     },
     {
       id: '5',
-      type: 'video',
-      title: 'dribbble_animation.avi',
-      subtitle: 'in Videos',
-      metadata: 'Added 1y ago'
+      type: 'file',
+      title: 'Dribbble Design.fig',
+      subtitle: 'in Dribbble Folder',
+      metadata: 'Edited 1h ago',
+      fileSize: '8.1 MB'
     },
     {
       id: '6',
@@ -125,7 +127,7 @@ const SearchResults: React.FC = () => {
       metadata: 'Edited 2m ago',
       fileCount: 12
     }
-  ];
+  ], [])
 
   const getFilteredCount = (type: string) => {
     let filtered = sampleResults;
@@ -134,22 +136,22 @@ const SearchResults: React.FC = () => {
       filtered = filtered.filter(result =>
         result.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         result.subtitle?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      )
     }
 
     switch (type) {
       case 'files':
-        return filtered.filter(result => ['file', 'folder', 'video'].includes(result.type)).length;
+        return filtered.filter(result => ['file', 'folder', 'video'].includes(result.type)).length
       case 'people':
-        return filtered.filter(result => result.type === 'person').length;
+        return filtered.filter(result => result.type === 'person').length
       case 'chats':
-        return 0;
+        return 0
       case 'lists':
-        return 0;
+        return 0
       default:
-        return filtered.length;
+        return filtered.length
     }
-  };
+  }
 
   const tabs = [
     {
@@ -186,51 +188,51 @@ const SearchResults: React.FC = () => {
       icon: '📋',
       visible: tabVisibility.lists
     }
-  ];
+  ]
 
   const filteredResults = useMemo(() => {
-    let filtered = sampleResults;
+    let filtered = sampleResults
 
     if (searchQuery.trim()) {
       filtered = filtered.filter(result =>
         result.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         result.subtitle?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      )
     }
 
     switch (activeTab) {
       case 'files':
-        filtered = filtered.filter(result => ['file', 'folder', 'video'].includes(result.type));
-        break;
+        filtered = filtered.filter(result => ['file', 'folder', 'video'].includes(result.type))
+        break
       case 'people':
-        filtered = filtered.filter(result => result.type === 'person');
-        break;
+        filtered = filtered.filter(result => result.type === 'person')
+        break
       case 'chats':
-        filtered = [];
-        break;
+        filtered = []
+        break
       case 'lists':
-        filtered = [];
-        break;
+        filtered = []
+        break
       default:
-        break;
+        break
     }
 
-    return filtered;
-  }, [searchQuery, activeTab, sampleResults]);
+    return filtered
+  }, [searchQuery, activeTab, sampleResults])
 
   const handleTabVisibilityChange = (newVisibility: TabVisibility) => {
-    setTabVisibility(newVisibility);
+    setTabVisibility(newVisibility)
     
     if (activeTab === 'files' && !newVisibility.files) {
-      setActiveTab('all');
+      setActiveTab('all')
     } else if (activeTab === 'people' && !newVisibility.people) {
-      setActiveTab('all');
+      setActiveTab('all')
     } else if (activeTab === 'chats' && !newVisibility.chats) {
-      setActiveTab('all');
+      setActiveTab('all')
     } else if (activeTab === 'lists' && !newVisibility.lists) {
-      setActiveTab('all');
+      setActiveTab('all')
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -304,7 +306,7 @@ const SearchResults: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchResults;
+export default SearchResults

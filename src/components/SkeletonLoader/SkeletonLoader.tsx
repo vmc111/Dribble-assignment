@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 interface SkeletonLoaderProps {
-  className?: string;
+  className?: string
 }
 
 const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({ className = "" }) => {
@@ -21,7 +21,7 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({ className = "" }) => {
         <div className="w-16 h-3 bg-gray-200 rounded"></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SkeletonLoader;
+export default SkeletonLoader

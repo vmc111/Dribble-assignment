@@ -1,17 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Switch from '../Switch';
+import React, { useState, useRef, useEffect } from 'react'
+import Switch from '../Switch'
 
 interface TabVisibility {
-  files: boolean;
-  people: boolean;
-  chats: boolean;
-  lists: boolean;
+  files: boolean
+  people: boolean
+  chats: boolean
+  lists: boolean
 }
 
 interface SettingsDropdownProps {
-  tabVisibility: TabVisibility;
-  onTabVisibilityChange: (visibility: TabVisibility) => void;
-  className?: string;
+  tabVisibility: TabVisibility
+  onTabVisibilityChange: (visibility: TabVisibility) => void
+  className?: string
 }
 
 const SettingsDropdown: React.FC<SettingsDropdownProps> = ({
@@ -19,39 +19,39 @@ const SettingsDropdown: React.FC<SettingsDropdownProps> = ({
   onTabVisibilityChange,
   className = ""
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        handleClose();
+        handleClose()
       }
-    };
+    }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleOpen = () => {
-    setIsOpen(true);
-    setTimeout(() => setIsAnimating(true), 10);
-  };
+    setIsOpen(true)
+    setTimeout(() => setIsAnimating(true), 10)
+  }
 
   const handleClose = () => {
-    setIsAnimating(false);
-    setTimeout(() => setIsOpen(false), 200);
-  };
+    setIsAnimating(false)
+    setTimeout(() => setIsOpen(false), 200)
+  }
 
   const handleToggle = (key: keyof TabVisibility) => {
     onTabVisibilityChange({
       ...tabVisibility,
       [key]: !tabVisibility[key]
-    });
-  };
+    })
+  }
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
@@ -143,7 +143,7 @@ const SettingsDropdown: React.FC<SettingsDropdownProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SettingsDropdown;
+export default SettingsDropdown
