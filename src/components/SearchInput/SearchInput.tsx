@@ -39,7 +39,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
   return (
     <div className="relative">
       <div className="relative flex items-center">
-        <div className="absolute left-4 flex items-center pointer-events-none">
+        <div className="absolute left-0 flex items-center pointer-events-none">
           {isLoading ? (
             <svg className="h-6 w-6 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -69,7 +69,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
           onFocus={handleFocus}
           onBlur={handleBlur}
           placeholder={placeholder}
-          className="w-full pl-12 pr-32 py-2 text-gray-900 text-lg bg-transparent border-none outline-none focus:outline-none transition-all duration-200 placeholder-gray-400"
+          className="w-full pl-8 pr-32 py-2 text-gray-900 text-lg bg-transparent border-none outline-none focus:outline-none transition-all duration-200 placeholder-gray-400"
         />
         {query && (
           <button
